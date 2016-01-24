@@ -1,0 +1,24 @@
+// Find the Number Occurring Odd Number of Times
+// logic :
+//   XOR all the array elements, even number times occuring number will XORed itelf 
+//   resulting in odd number of times occuring number
+
+#include <iostream>
+using namespace std;
+
+int getOddOccurance(int ar[], int ar_size)
+{
+	int res = 0;
+	for (int i = 0; i < ar_size; i++)
+		res = res ^ ar[i];
+	return res;
+}
+
+/* Diver function to test above function */
+int main()
+{
+	int ar[] = { 2, 3, 5, 4, 5, 2, 4, 3, 5, 2, 4, 4, 2 };
+	int n = sizeof(ar) / sizeof(ar[0]);
+	printf("%d", getOddOccurance(ar, n));
+	return 0;
+}
