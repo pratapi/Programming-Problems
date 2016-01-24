@@ -1,0 +1,31 @@
+// Find the Missing Number
+// logic :
+//   1) XOR all the array elements, let the result of XOR be X1.
+//   2) XOR all numbers from 1 to n, let XOR be X2.
+//   3) XOR of X1 and X2 gives the missing number.
+
+#include <iostream>
+using namespace std;
+
+int findMissingNumber(int ar[], int ar_size)
+{
+	int X1 = 1;
+	int X2 = ar[0];
+
+	for (int i = 1; i < ar_size; i++)
+		X2 = X2 ^ ar[i];
+
+	for (int j = 2; j <= ar_size+1; j++)
+		X1 = X1 ^ j;
+
+	return (X1 ^ X2);
+}
+
+/* Diver function to test above function */
+int main()
+{
+	int ar[] = { 1, 2, 4, 5, 6};
+	int n = sizeof(ar) / sizeof(ar[0]);
+	printf("%d", findMissingNumber(ar, n));
+	return 0;
+}
