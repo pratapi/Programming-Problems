@@ -1,0 +1,43 @@
+// Search an element in a sorted and rotated array
+
+#include <iostream>
+using namespace std;
+
+int circularArraySearch(int a[], int size, int key)
+{
+	int low = 0, high = size-1;
+
+	while (low <= high)
+	{
+		int mid = (low + high) / 2;
+		if (a[mid] == key) return mid; // case 1: found x
+			
+		if (a[mid] <= a[high]) // case 2 : right half is sorted
+		{
+			if (key > a[mid] && key <= a[high])
+				low = mid + 1; // go searching in right sorted half
+			else
+				high = mid - 1;
+		}
+		else // left half is sorted
+		{
+			if (a[low] <= key && key > a[mid])
+				high = mid - 1;
+			else
+				low = mid + 1; // go searching in right
+		}
+	}
+	return -1;
+}
+
+/*Driver program to test maxSubArraySum*/
+int main()
+{
+	int a[] = { 12, 14, 18, 21, 3, 6, 8, 9 };
+	int n = sizeof(a) / sizeof(a[0]);
+	int key;
+	cout << "Enter the key \n" << endl;
+	cin >> key;
+	printf_s("key is at position %d \n", circularArraySearch(a, n, key));
+	return 0;
+}
