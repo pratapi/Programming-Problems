@@ -1,0 +1,64 @@
+// Median of two sorted arrays
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+int median(int ar[], int n)
+{
+	if (n % 2 == 0)
+		return (ar[n / 2] + ar[n / 2 - 1]) / 2;
+	else
+		return ar[n / 2];
+}
+
+int getMedian(int a[], int b[], int size)
+{
+	int m1, m2; // median of a[], b[]
+
+	if (size <= 0) // invalid input size
+		return -1;
+
+	if (size == 1)
+		return (a[0] + b[0]) / 2;
+
+	if (size == 2 )
+		return (max(a[0], b[0]) + min(a[1], b[1])) / 2;
+
+	m1 = median(a, size);
+	m2 = median(b, size);
+
+	if (m1 == m2)
+		return m1;
+	// if m1 < m2 then median exist in a[...m1] and b[...m2]
+	if (m1 < m2)
+	{
+		if (size % 2 == 0)
+			return getMedian(a + size / 2 - 1, b, size - size / 2 + 1);
+		else
+			return getMedian(a + size / 2, b, size - size / 2);
+	}
+	else // then median exists in a[...m1] and b[m2...]
+	{
+		if (size % 2 == 0)
+			return getMedian(b + size / 2 - 1, a, size - size / 2 + 1);
+		else
+			return getMedian(b + size / 2, a, size - size / 2);
+	}
+
+	return -1;
+}
+
+/* Driver program to test above function */
+int main()
+{
+	int ar1[] = { 1, 12, 15, 26, 38 };
+	int ar2[] = { 2, 13, 17, 30, 45 };
+	int n1 = sizeof(ar1) / sizeof(ar1[0]);
+	int n2 = sizeof(ar2) / sizeof(ar2[0]);
+	if (n1 == n2)
+		printf("Median is %d", getMedian(ar1, ar2, n1));
+	else
+		printf("Doesn't work for arrays of unequal size");
+
+	return 0;
+}
