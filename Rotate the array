@@ -1,0 +1,47 @@
+// Rotate the array
+// logic:
+//  a) reverse the whole array
+//  b) reverse the 0 to k-1
+//  c) reverse the k to n-1
+
+#include <iostream>
+using namespace std;
+
+void reverse(int ar[], int start, int end)
+{
+	int j = end - 1;
+	for (int  i = start; i < end && j >= i; ++i)
+	{
+		int tmp = ar[i];
+		ar[i] = ar[j];
+		ar[j] = tmp;
+		j--;
+	}
+}
+
+void Rotate(int ar[], int d, int n)
+{
+	reverse(ar, 0, n);
+	reverse(ar, 0, d);
+	reverse(ar, d, n);
+}
+
+/* utility function to print an array */
+void printArray(int arr[], int size)
+{
+	int i;
+	for (i = 0; i < size; i++)
+		printf("%d ", arr[i]);
+	printf_s("\n");
+}
+
+/* Driver program to test above function */
+int main()
+{
+	int ar[] = { 1, 2, 3, 4, 5, 6, 7 };
+	int n = sizeof(ar) / sizeof(ar[0]);
+	printArray(ar, n);
+	Rotate(ar, 3, 7);
+	printArray(ar, n);
+	return 0;
+}
